@@ -1,0 +1,33 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body{
+    background-color: black;
+}
+
+.formulario {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contenedor-input {
+    margin-bottom: 15px;
+}
+
+.contenedor-input label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.contenedor-input input {
+    width: 254px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
