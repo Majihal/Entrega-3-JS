@@ -1,38 +1,48 @@
 let arr = [];
 
-
 // Capturo valores del formulario
-function valoresformulario (){
+function leerValoresFormulario (){
     const nombre = document.querySelector("#nombre").value
     const apellido = document.querySelector("#apellido").value
     const dni = document.querySelector("#dni").value
     const mail = document.querySelector("#mail").value
     const valores = [nombre, apellido, dni, mail, uuidv4()]
-    const noerrores = valores.every ((campo) => campo !="")
-    if (noerrores) {
-        return valores
-    } else {
-        return false
+    const noErrores = valores.every ((campo) => campo !="")
+    const dniRepetido = arr.find(user => user[2] === dni)
+    if (dniRepetido){
+        document.getElementById('errordni').innerHTML = "Ya existe el DNI registrado";
     }
-}
+    if (mail === "") {
+        document.getElementById('errormail').innerHTML = "Ingrese un mail valido";
+    } else {
+        document.getElementById('errormail').innerHTML = "";
+    }
 
-// genera un numero de cliente aleatorio
-function uuidv4() {
-    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-  }
+    if (dni === "" || dni.length !== 8 || isNaN(dni)) {
+        document.getElementById('errordni').innerHTML = "Ingrese un DNI válido de 8 cifras.";
+    }  else {
+        document.getElementById('errordni').innerHTML = "";
+    }
 
+    if (nombre === "" || !validarCaracteresEspeciales(nombre)) {
+        document.getElementById('errornombre').innerHTML = "El nombre tiene caracteres invalidos";
+    } else {
+        document.getElementById('errornombre').innerHTML = "";
+    }
 
-function borrarvalores () {
-    document.querySelector('#nombre').value = ""
-    document.querySelector('#apellido').value = ""
-    document.querySelector('#dni').value = ""
-    document.querySelector('#mail').value = ""
+    if (!validarCaracteresEspeciales(apellido)) {
+        document.getElementById('errorapellido').innerHTML = "El apellido tiene caracteres invalidos";
+    }  else {
+        document.getElementById('errorapellido').innerHTML = "";
+    } 
+    if (noErrores){
+        return valores
+    } 
+    return false
 }
 
 // Agrega los items al HTML.
-function agregaritemlista (){
+function renderLista (){
     let copiaarr = arr.map((user, index) => (
         `<tr>
             <td>${user[0]}</td>
@@ -48,28 +58,38 @@ function agregaritemlista (){
     return copiaarr.join ("")
 }
 
-// Elimina los items de la lista y ademas actualiza el local storage para que devuela unicamente los elementos que no se eliminaron o el array vacio.
-function eliminarItem(index) {
-    arr.splice(index, 1);
-    document.querySelector('#lista-clientes').innerHTML = agregaritemlista();
-    // actualizarListaHTML ()
-    guardardatos ()
+function borrarValoresForm (){
+    document.querySelector('#nombre').value = ""
+    document.querySelector('#apellido').value = ""
+    document.querySelector('#dni').value = ""
+    document.querySelector('#mail').value = ""
+}
+
+// genera un numero de cliente aleatorio
+function uuidv4() {
+    return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+      (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
   }
 
-// Agrega los items a la lista. Luego de agregarlos se le pasa la funcion borrar valores para dejar todos inputs vacios.
-function renderlista (item) {
+function eliminarItem(index) {
+    arr.splice(index, 1);
+    document.querySelector('#lista-clientes').innerHTML = renderLista();
+    guardarDatosEnLocal ()
+  }
+
+function agregarItems (item) {
     arr.push (item)
-    document.querySelector('#lista-clientes').innerHTML = agregaritemlista()
-    borrarvalores ()
+    document.querySelector('#lista-clientes').innerHTML = renderLista()
+    borrarValoresForm ()
 }
 
 // Guardo datos en local storage
-function guardardatos(){
+function guardarDatosEnLocal(){
     localStorage.setItem ("cliente", JSON.stringify(arr))
 }
 
-// Traigo los datos del local storage y actualizo la lista
-function cargardatos(){
+function cargarDatosLocal(){
     const datosGuardados = localStorage.getItem ("cliente")
     if (datosGuardados) {
         arr = JSON.parse(datosGuardados)
@@ -78,27 +98,26 @@ function cargardatos(){
    
 }
 
-
 function actualizarListaHTML() {
-    document.querySelector('#lista-clientes').innerHTML = agregaritemlista();
+    document.querySelector('#lista-clientes').innerHTML = renderLista();
+}
+
+function validarCaracteresEspeciales(texto) {
+    var letters = /^[A-Za-z]+$/;
+    return texto.match(letters);
 }
 
 // Espera a que cargue toda la pagina para que no obtenga datos vacios y luego carga los datos en el caso de que haya.
 document.addEventListener("DOMContentLoaded", () => {
-    cargardatos();
+    cargarDatosLocal();
 })    
-
 
 // Evento para agregar al apretar el boton del formulario los valores ingresados por el usuario
 document.querySelector ("#formulario").addEventListener ("submit", (e) => {
     e.preventDefault()
-    const valoresform = valoresformulario ()
-    if (valoresform){
-        renderlista (valoresform)
-        guardardatos()
-        console.log (valoresform)
-    }
-
-}
-)
-
+    const valoresform = leerValoresFormulario ()
+    if (valoresform) {
+        agregarItems (valoresform)
+        guardarDatosEnLocal()
+        }
+})
