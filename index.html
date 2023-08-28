@@ -1,57 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>Entrega 3</title>
-</head>
-<body>
+  </head>
+  <body>
     <main>
-        <form action="" class="formulario" id="formulario">
-            <div class="contenedor">
-                <div class="contenedor-input" id="contenedornombre" role="alert">
-                    <label for="nombre">Ingrese su nombre</label>
-                    <input type="text" name="nombre" id="nombre">   
-                    <p class="text-red-300" id="errornombre"></p>   
-                </div>
-                <div class="contenedor-input">
-                    <label for="apellido">Ingrese su apellido</label>
-                    <input type="text" name="apellido" id="apellido">
-                    <p class="text-red-300" id="errorapellido"></p>
-                </div>
-                <div class="contenedor-input">
-                    <label for="dni">Ingrese su DNI</label>
-                    <input type="number" name="dni" id="dni">
-                    <p id="errordni" class="text-red-300"></p>
-                </div>
-                <div class="contenedor-input">
-                    <label for="mail">Ingrese su mail</label>
-                    <input type="email" name="mail" id="mail">
-                    <p id="errormail" class="text-red-300"></p>
-                </div>
-                <button type="submit"  class="bg-teal-200 hover:bg-teal-400  w-64 h-12 mb-4 mx-auto font-bold"> Agregar cliente </button>
-            </div>
-            <span class="text-red-300" id="error"></span>
-            <table class="table-auto border-separate border-spacing-[28px] mx-auto border-collapse border border-slate-500 rounded-t-lg text-white mt-5">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>DNI</th>
-                        <th>Email</th>
-                        <th>Nº de Cliente</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center" id="lista-clientes">
+      <form action="" class="formulario" id="formulario">
+        <div class="contenedor">
+          <div class="contenedor-input" id="contenedornombre" role="alert">
+            <label for="nombre">Ingrese su nombre</label>
+            <input type="text" name="nombre" id="nombre" />
+            <p class="text-red-300" id="errornombre"></p>
+          </div>
+          <div class="contenedor-input">
+            <label for="apellido">Ingrese su apellido</label>
+            <input type="text" name="apellido" id="apellido" />
+            <p class="text-red-300" id="errorapellido"></p>
+          </div>
+          <div class="contenedor-input">
+            <label for="dni">Ingrese su DNI</label>
+            <input type="number" name="dni" id="dni" />
+            <p id="errordni" class="text-red-300"></p>
+          </div>
+          <div class="contenedor-input">
+            <label for="mail">Ingrese su mail</label>
+            <input type="email" name="mail" id="mail" />
+            <p id="errormail" class="text-red-300"></p>
+          </div>
+          <div class="contenedor-input" id="contenedornombre" role="alert">
+            <label for="telefono">Ingrese su Telefono</label>
+            <select name="" id="render-pais" class="contenedor-select"></select>
+            <input type="tel" name="telefono" id="telefono" />
+            <p id="errortelefono" class="text-red-300"></p>
+          </div>
 
-                </tbody>
-
-            </table>
-        </form>
+          <button
+            type="submit"
+            class="bg-teal-200 hover:bg-teal-400 w-64 h-12 mb-4 mx-auto font-bold"
+          >
+            Agregar cliente
+          </button>
+        </div>
+        <span class="text-red-300" id="error"></span>
+        <table
+          class="table-auto border-separate border-spacing-[28px] mx-auto border-collapse border border-slate-500 rounded-t-lg text-white mt-5"
+        >
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Apellido</th>
+              <th>DNI</th>
+              <th>Email</th>
+              <th>Nº de Cliente</th>
+            </tr>
+          </thead>
+          <tbody class="text-center" id="lista-clientes"></tbody>
+        </table>
+      </form>
     </main>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
     <script src="./js/index.js"></script>
-</body>
+  </body>
 </html>
