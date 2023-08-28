@@ -31,3 +31,9 @@ body{
     padding: 5px;
     border: 1px solid #ccc;
 }
+
+.contenedor-select {
+    width: 180px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
